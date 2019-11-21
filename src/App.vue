@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app">
+        <full-page ref="fullpage" :options="{}">
+            <div class="section">
+                <customA v-if="game"></customA>
+                <customB v-else></customB>
+                {{ game }}
+                <button @click="changeGame">Test</button>
+                <button @click="rebuild">rebuild</button>
+            </div>
+        </full-page>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'app',
+    data: () => ({
+      game: false
+    }),
+    methods: {
+      changeGame() {
+        this.game = !this.game;
+      },
+      rebuild() {
+        this.$refs.fullpage.api.reBuild();
+      }
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
